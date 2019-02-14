@@ -7,8 +7,9 @@ I created this application to monitor and reward my childrens' behavior in an in
 ## Setup
 1. Clone or download this repository.
 2. Extract the contents of the repository.
-3. Run the "server.js" file in Node
-4. Open localhost:PORT# in a web browser to view the user interface.
+3. Create a new database in MySQL called "honorblast" and import the .SQL file in the DB folder.
+4. Run the "server.js" file in Node
+5. Open localhost:PORT# in a web browser to view the user interface.
 
 ## How to Use
 1. Follow setup instructures above.
