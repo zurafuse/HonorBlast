@@ -1,4 +1,4 @@
-# HonorBlast
+# Honor Blast
 Behavioral App Learning Management System for Children
 
 ## Description
