@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ACTIVITIES - Honor Blast</title>
+	<%- include sharedcontent/head.ejs %>
+</head>
+<body>
+<%- include sharedcontent/header.ejs %>
+	<section class="main-container">
+		<br>
+			<div class="container-fluid">
+				<div class="row"><h2 class="title2">Activities:</h2></div>
+				<% for (var i = 0; i < INFO.activities.length; i++){%>
+					<div class="row stat-row"><p class="stat-text"><%- INFO.activities[i].description %> at <%- INFO.activities[i].adate %></p></div>
+				<% } %>	
+			</div>
+	</section>	
+	<%- include sharedcontent/footer.ejs %>
+	
+	<script src="/js/app.js"></script>
+	<script src="/js/menu.js"></script>
+</body>
+</html>

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
-<%- include sharedcontent/head.ejs %>
+<head>
+	<title>Honor Blast</title>
+	<%- include sharedcontent/head.ejs %>
+</head>
 <body>
 <%- include sharedcontent/header.ejs %>
 	<section class="main-container">
@@ -12,7 +15,7 @@
 				<div class="col-sm-3 avatar-col">
 					<div class="avatar-name" id="user<%-INFO.players[i].id%>">
 						<h3 class="player-img"><%- INFO.players[i].name %></h3>
-						<svg class="img-responsive player-img" alt="Avatar"><%- INFO.players[i].img %></svg>
+						<svg class="img-responsive player-img" viewBox="0 0 400 400" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" alt="Avatar"><%- INFO.players[i].img %></svg>
 						<h5 class="player-img"><%- INFO.players[i].username %></h5>
 					</div><br>
 				</div>						
