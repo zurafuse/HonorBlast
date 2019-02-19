@@ -1,4 +1,5 @@
 const model = require("../model/model");
+const bodyParser = require("body-parser");
 
 module.exports = function (app) {
     //home page
@@ -40,4 +41,14 @@ module.exports = function (app) {
             response.render("activities", { INFO: obj, DATE: (new Date().getYear()) + 1900 });
         });
     })
+	
+    //player
+    model(app, (obj) => {
+        app.get("/player/:id", (request, response) => {
+            console.log(obj);
+            response.render("player", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+        });
+    })
+	
+	
 };

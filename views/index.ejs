@@ -9,16 +9,16 @@
 	<section class="main-container">
 		<br>
 		<div class="container-fluid">
-		<h2 class="title2">PLEASE SELECT A PLAYER</h2>
+		<h2 class="title2 ">PLEASE SELECT A PLAYER</h2>
 			<div class="row players0">
 			<% for (var i = 0; i < INFO.players.length; i++){ %>
-				<div class="col-sm-3 avatar-col">
+				<a href="player/<%- INFO.players[i].id %>"><div class="col-sm-3 avatar-col ">
 					<div class="avatar-name" id="user<%-INFO.players[i].id%>">
-						<h3 class="player-img"><%- INFO.players[i].name %></h3>
-						<svg class="img-responsive player-img" viewBox="0 0 400 400" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" alt="Avatar"><%- INFO.players[i].img %></svg>
-						<h5 class="player-img"><%- INFO.players[i].username %></h5>
+						<h3 class="player-img avatar-name"><%- INFO.players[i].name %></h3>
+						<svg class="img-responsive player-img " viewBox="0 0 400 400" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" alt="Avatar"><%- INFO.players[i].img %></svg>
+						<h5 class="player-img "><%- INFO.players[i].username %></h5>
 					</div><br>
-				</div>						
+				</div></a>
 			<% } %>	
 
 			
