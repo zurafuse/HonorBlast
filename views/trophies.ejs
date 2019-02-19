@@ -12,12 +12,9 @@
 				<div class="row"><h2 class="title2">Trophies:</h2></div>
 					<% for (var i = 0; i < INFO.trophies.length; i++){ %>
 					<div class="col-sm-3 avatar-col">
-						<h3><%- INFO.trophies[i].name %></h3>
-						<figure>
-							<svg class="img-responsive player-img" viewBox="0 0 400 400" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" alt="Trophy"><%- INFO.trophies[i].img %></svg>
-						<figcaption><%- INFO.trophies[i].description %></figcaption>
-						</figure>
-					</div>		
+						<h3><%- INFO.trophies[i].description %></h3>
+							<img class="img-responsive player-img"  alt="Trophy" src="<%- INFO.trophies[i].img %>" />
+					</div>
 					<% } %>
 			</div>
 	</section>	

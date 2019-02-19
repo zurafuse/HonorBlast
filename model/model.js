@@ -35,11 +35,14 @@ module.exports = function(app, callback){
                 if (err) throw err;
                 studentModel.prizes.push(prizeResult);
             });
+			*/
             //populate activities
-            connection.query(`SELECT * FROM activities WHERE studentid = ${studentModel.players[i].id}`, (err, actResult, fields) => {
-                if (err) { throw err; }
-                else { studentModel.activities.push(actResult); }
-            });*/
+            connection.query(`SELECT description, DATE_FORMAT(adate, '%m/%d/%Y %H:%i') as 'date' FROM activities WHERE studentid = ${studentModel.players[i].id}`, (err, activityResult, fields) => {
+                if (err) throw err;
+                for (var j = 0; j < activityResult.length; j++) {
+                    studentModel.activities.push(activityResult[j]);
+                }
+            });
         }
     }
 

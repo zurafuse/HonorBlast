@@ -10,8 +10,8 @@
 		<br>
 			<div class="container-fluid">
 				<div class="row"><h2 class="title2">Activities:</h2></div>
-				<% for (var i = 0; i < INFO.activities.length; i++){%>
-					<div class="row stat-row"><p class="stat-text"><%- INFO.activities[i].description %> at <%- INFO.activities[i].adate %></p></div>
+				<% for (var i = 0; i < INFO.activities.length; i++){ %>
+					<div class="row stat-row"><p class="stat-text"><%- INFO.activities[i].description %> on <%- INFO.activities[i].date %></p></div>
 				<% } %>	
 			</div>
 	</section>	
