@@ -5,24 +5,38 @@
 	<%- include sharedcontent/head.ejs %>
 </head>
 <body>
-<%- include sharedcontent/header.ejs %>
+	<header class="header-style">
+		<div class="container-fluid">
+			<button class="menu-icon">
+					<img src="/images/menu-icon.png" alt="toggle icon" class="menu-icon-img" />
+			</button>
+			<div class="row">
+				<div class="col-sm-6 vcenter navbar">	
+					<h1 class="title">HONOR BLAST</h1>				
+				</div>
+				<div class="col-sm-1 vcenter navbar">	
+					<img class="img-responsive" src="/images/logo.png" />			
+				</div>				
+			</div>
+	</header>
+
+
 	<section class="main-container">
 		<br>
 		<div class="container-fluid">
-		<h2 class="title2 ">PLEASE SELECT A PLAYER</h2>
-			<div class="row players0">
-			<% for (var i = 0; i < INFO.players.length; i++){ %>
-				<a href="player/<%- INFO.players[i].id %>"><div class="col-sm-3 avatar-col ">
-					<div class="avatar-name" id="user<%-INFO.players[i].id%>">
-						<h3 class="player-img avatar-name"><%- INFO.players[i].name %></h3>
-						<svg class="img-responsive player-img " viewBox="0 0 400 400" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" alt="Avatar"><%- INFO.players[i].img %></svg>
-						<h5 class="player-img "><%- INFO.players[i].username %></h5>
-					</div><br>
-				</div></a>
-			<% } %>	
-
-			
+		<h2 class="title2 ">Enter Password to Continue</h2>
+		<form action="/home" method="post">	
+			<div class="container">
+				<label for="uname"><b>Username</b></label>
+				<input type="text" placeholder="Enter Username" name="uname" id="uname" required>
+				<label for="psw"><b>Password</b></label>
+				<input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+				<button type="submit" class="login-button">Login</button>
+				<label>
+					<input type="checkbox" checked="checked" name="remember"> Remember me
+				</label>
 			</div>
+		</form>
 		</div>
 	</section>	
 	<%- include sharedcontent/footer.ejs %>

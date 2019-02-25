@@ -9,13 +9,19 @@
 	<section class="main-container">
 		<br>
 			<div class="container-fluid">
-				<div class="row"><h2 class="title2">Prizes:</h2></div>
+				<div class="row"><h2 class="title2">Available Prizes:</h2></div>
 					<% for (var i = 0; i < INFO.prizes.length; i++){ %>
 					<div class="col-sm-3 avatar-col">
 						<h3><%- INFO.prizes[i].name %></h3>
 						<figure>
 							<img class="img-responsive player-img" alt="Prize" src="<%- INFO.prizes[i].img %>" />
 						<figcaption><%- INFO.prizes[i].description %></figcaption>
+						<% if (INFO.prizes[i].cost > 0){ %>
+						<span style="display: inline-block;">
+							<h4 style="float: left;">PRICE: <%- INFO.prizes[i].cost %>&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+							<button style="font-size: 16pt;">💰 BUY</button>
+						</span>
+						<% } %>
 						</figure>
 					</div>		
 					<% } %>

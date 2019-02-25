@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Player Prizes - Honor Blast</title>
+	<%- include sharedcontent/head.ejs %>
+</head>
+<body>
+<%- include sharedcontent/header.ejs %>
+<% var thisStudent = {};
+	for (var i = 0; i < INFO.players.length; i++){
+		if (INFO.players[i].id == ID){
+			thisStudent = INFO.players[i];
+		}
+	}
+ %>
+	<section class="main-container">
+		<br>
+			<div class="container-fluid">
+				<div class="row"><h2 class="title2"><%- thisStudent.name %>'s Prizes:</h2></div>
+					<% for (var i = 0; i < INFO.studentprizes.length; i++){
+					if (INFO.studentprizes[i].student == ID){ 				
+						for (var j = 0; j < INFO.prizes.length; j++){ 
+						if (INFO.prizes[j].id == INFO.studentprizes[i].prize) { %>
+						<div class="col-sm-3 avatar-col">
+							<h3><%- INFO.prizes[j].description %></h3>
+							<figure>
+								<img class="img-responsive player-img"  alt="Prize" src="<%- INFO.prizes[j].img %>" />
+								<figcaption><%- INFO.studentprizes[i].details %></figcaption>
+							</figure>
+						</div>
+						<% }}
+						}} %>					
+			</div>
+	</section>	
+	<%- include sharedcontent/footer.ejs %>
+	
+	<script src="/js/app.js"></script>
+	<script src="/js/menu.js"></script>
+</body>
+</html>

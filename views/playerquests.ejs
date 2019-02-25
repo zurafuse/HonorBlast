@@ -6,20 +6,21 @@
 </head>
 <body>
 <%- include sharedcontent/header.ejs %>
+<% var thisStudent = {};
+	for (var i = 0; i < INFO.players.length; i++){
+		if (INFO.players[i].id == ID){
+			thisStudent = INFO.players[i];
+		}
+	}
+ %>
 	<section class="main-container">
 		<br>
 			<div class="container-fluid">
-				<div class="row"><h2 class="title2">Assigned Quests:</h2></div>
+				<div class="row"><h2 class="title2"><%- thisStudent.name %>'s Quests:</h2></div>
 				<% for (var i = 0; i < INFO.quests.length; i++){
-				var studentname = "student";
-				for (var j = 0; j < INFO.players.length; j++){
-					if (INFO.players[j].id == INFO.quests[i].studentid){
-						studentname = INFO.players[j].name;
-					}
-				}
-				%>
-					<div class="row stat-row"><p class="stat-text"><%- INFO.quests[i].name %>: <%- INFO.quests[i].description %> - assigned to <%- studentname %></p></div>
-				<% } %>	
+					if (thisStudent.id == INFO.quests[i].studentid){ %>
+					 <div class="row stat-row"><p class="stat-text"><%- INFO.quests[i].name %>: <%- INFO.quests[i].description %></p></div>
+					<% } } %>	
 			</div>
 	</section>	
 	<%- include sharedcontent/footer.ejs %>

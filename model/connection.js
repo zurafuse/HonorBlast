@@ -1,10 +1,14 @@
 const mysql = require("mysql");
 
-var con = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "honorblast"
-});
 
-module.exports = con;
+
+module.exports = function(usern, pwd){
+	var con = mysql.createConnection({
+		host: "localhost",
+		user: usern,
+		password: pwd,
+		database: "honorblast"
+	});	
+	return con;	
+};
+

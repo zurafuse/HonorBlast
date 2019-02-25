@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Player Trophies - Honor Blast</title>
+	<%- include sharedcontent/head.ejs %>
+</head>
+<body>
+<%- include sharedcontent/header.ejs %>
+<% var thisStudent = {};
+	for (var i = 0; i < INFO.players.length; i++){
+		if (INFO.players[i].id == ID){
+			thisStudent = INFO.players[i];
+		}
+	}
+ %>
+	<section class="main-container">
+		<br>
+			<div class="container-fluid">
+				<div class="row"><h2 class="title2"><%- thisStudent.name %>'s Trophies:</h2></div>
+					<% for (var i = 0; i < INFO.studenttrophies.length; i++){
+					if (INFO.studenttrophies[i].student == ID){ 				
+						for (var j = 0; j < INFO.trophies.length; j++){ 
+						if (INFO.trophies[j].id == INFO.studenttrophies[i].trophy) { %>
+						<div class="col-sm-3 avatar-col">
+							<h3><%- INFO.trophies[j].description %></h3>
+							<figure>
+								<img class="img-responsive player-img"  alt="Trophy" src="<%- INFO.trophies[j].img %>" />
+								<figcaption><%- INFO.studenttrophies[i].details %></figcaption>
+							</figure>
+						</div>
+						<% }}
+						}} %>					
+			</div>
+	</section>	
+	<%- include sharedcontent/footer.ejs %>
+	
+	<script src="/js/app.js"></script>
+	<script src="/js/menu.js"></script>
+</body>
+</html>
