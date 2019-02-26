@@ -1,3 +1,16 @@
+var updateFields = function(){
+	starcount = document.getElementById("starcount").value;
+	heartcount = document.getElementById("heartcount").value;
+	coincount = document.getElementById("coincount").value;
+	xpcount = document.getElementById("xpcount").value;
+	
+	document.getElementById("submitcoins").value = document.getElementById("coincount").value;;
+	document.getElementById("submitxp").value = document.getElementById("xpcount").value;;
+	document.getElementById("submithp").value = document.getElementById("heartcount").value;;
+	document.getElementById("submitstars").value = document.getElementById("starcount").value;;	
+	
+};
+
 //stars
 var starcount = document.getElementById("starcount").value;
 var starcountEl = document.getElementById("starcount");
@@ -58,3 +71,4 @@ function xpminus(){
 		xpcountEl.value = xpcount;
 	}  
 }
+

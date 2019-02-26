@@ -1,5 +1,6 @@
 const bodyParser = require("body-parser");
 const model = require("../model/model");
+const updatemodel = require("../model/updatemodel");
 
 module.exports = function (app) {
 	app.use(bodyParser.urlencoded({
@@ -71,10 +72,17 @@ module.exports = function (app) {
 		response.render("adminindex", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
 	});		
 
-	//admin
+	//admin player management
 	app.get("/admin/player/:id", (request, response) => {
 		response.render("adminplayer", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
 	});
 
+	//admin player management
+	app.post("/admin/update", (request, response) => {
+		updatemodel(app, {user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
+			health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars}, (objectModel) => {		
+		response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+		});
+	});
 	
 };

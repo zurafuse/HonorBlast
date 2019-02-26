@@ -26,7 +26,7 @@
 					<div class="row stat-row" >
 						<p class="stat-text" style="float: left;"><span style="color: red; font-size: 26pt; ">♥</span> HP Points:&nbsp;&nbsp;</p>
 						<div id="input_div">
-							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.health %>" id="heartcount">
+							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.health %>" id="heartcount" onchange="updateFields()">
 							<input type="button" value="-" id="moins" onclick="heartminus()">
 							<input type="button" value="+" id="plus" onclick="heartplus()">
 						</div>
@@ -34,7 +34,7 @@
 					<div class="row stat-row">
 						<p class="stat-text" style="float: left;"><span style="font-size: 26pt">⭐</span> Stars:&nbsp;&nbsp;</p>
 						<div id="input_div">
-							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.stars %>" id="starcount">
+							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.stars %>" id="starcount" onchange="updateFields()">
 							<input type="button" value="-" id="moins" onclick="starminus()">
 							<input type="button" value="+" id="plus" onclick="starplus()">
 						</div>
@@ -53,7 +53,7 @@
 					<div class="row stat-row">
 						<p class="stat-text" style="float: left;"><span style="font-size: 26pt">䷩</span> Experience Points: &nbsp;&nbsp;&nbsp;</p>
 						<div id="input_div">
-							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.xp %>" id="xpcount">
+							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.xp %>" id="xpcount" onchange="updateFields()">
 							<input type="button" value="-" id="moins" onclick="xpminus()">
 							<input type="button" value="+" id="plus" onclick="xpplus()">
 						</div>						
@@ -61,12 +61,30 @@
 					<div class="row stat-row">
 						<p class="stat-text" style="float: left;"><span style="font-size: 26pt">¤</span> Coins: &nbsp;&nbsp;&nbsp;</p>
 						<div id="input_div">
-							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.money %>" id="coincount">
+							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.money %>" id="coincount" onchange="updateFields()">
 							<input type="button" value="-" id="moins" onclick="coinminus()">
 							<input type="button" value="+" id="plus" onclick="coinplus()">
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="row">
+				<div class="container-fluid">
+				<h2 class="title2 ">Enter Username and Password to Commit Update</h2>
+				<form action="/admin/update" method="post">	
+					<div class="container">
+						<label for="uname"><b>Username</b></label>
+						<input type="text" placeholder="Enter Username" name="uname" id="uname" required onchange="updateFields()">
+						<label for="psw"><b>Password</b></label>
+						<input type="password" placeholder="Enter Password" name="psw" id="psw" required onchange="updateFields()">
+						<input type="hidden" id="submitcoins" name="submitcoins" value="">
+						<input type="hidden" id="submitxp" name="submitxp" value="">						
+						<input type="hidden" id="submithp" name="submithp" value="">						
+						<input type="hidden" id="submitstars" name="submitstars" value="">						
+						<button type="submit" class="login-button">UPDATE</button>
+					</div>
+				</form>
+				</div>				
 			</div>
 		</div>
 		</div>

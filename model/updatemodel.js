@@ -1,6 +1,8 @@
 
 module.exports = function (app, login, callback) {
 	
+	console.log(login.money);
+	
 	const con = require("../model/connection");
 	var connection = con(login.user, login.pwd);
 	
@@ -43,9 +45,7 @@ module.exports = function (app, login, callback) {
         studentprizes: []
     };
 
-	
-	
-
+    var populateStudentInfo = () => {
         for (var i = 0; i < studentModel.players.length; i++) {
             //populate quests
             connection.query(`SELECT * FROM quests WHERE studentid = ${studentModel.players[i].id}`, (err, questResult, fields) => {
@@ -109,5 +109,6 @@ module.exports = function (app, login, callback) {
         }
     };
 	
+    populateArrays();
     callback(studentModel);
 };
