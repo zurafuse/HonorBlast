@@ -10,6 +10,17 @@
 		<br>
 		<div class="container-fluid">
 		<h2 class="title2 ">SELECT A STUDENT TO MANAGE OR CREATE A NEW ONE</h2>
+		
+					<div class="row stat-row">
+						<a href="#"><button class="user-quests stat-button">📜 Manage Quests</button></a>
+					</div>
+					<div class="row stat-row">
+						<a href="#"><button class="user-prizes stat-button">🏅 Manage Prizes</button></a>
+					</div>
+					<div class="row stat-row">
+						<a href="#"><button class="user-trophies stat-button">🏆 Manage Trophies</button></a>
+					</div>
+					
 			<div class="row players0">
 			<% for (var i = 0; i < INFO.players.length; i++){ %>
 				<a href="admin/player/<%- INFO.players[i].id %>">

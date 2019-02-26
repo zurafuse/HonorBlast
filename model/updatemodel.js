@@ -43,7 +43,9 @@ module.exports = function (app, login, callback) {
         studentprizes: []
     };
 
-    var populateStudentInfo = () => {
+	
+	
+
         for (var i = 0; i < studentModel.players.length; i++) {
             //populate quests
             connection.query(`SELECT * FROM quests WHERE studentid = ${studentModel.players[i].id}`, (err, questResult, fields) => {
@@ -107,6 +109,5 @@ module.exports = function (app, login, callback) {
         }
     };
 	
-    populateArrays();
     callback(studentModel);
 };

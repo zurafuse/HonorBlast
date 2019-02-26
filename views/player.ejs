@@ -12,7 +12,24 @@
 			thisStudent = INFO.players[i];
 		}
 	}
- %>
+	var studentStatus = "strong";
+	var studenh = Math.floor(thisStudent.health / 10);
+	if (studenh == 0 || studenh == 1 || studenh == 2 || studenh == 3){
+		studentStatus = "fallen";
+	}
+	else if (studenh == 4 || studenh == 5){
+		studentStatus = "weak";
+	}
+	else if (studenh == 6 || studenh == 7){
+		studentStatus = "medium";
+	}
+	else if (studenh == 8){
+		studentStatus = "strong";
+	}
+	else if (studenh == 9 || studenh == 10){
+		studentStatus = "powerful";
+	} 
+	%>
 	<section class="main-container">
 		<br>
 		<div class="container-fluid">
@@ -28,7 +45,7 @@
 						<p class="stat-text">🎖 Rank: <%- thisStudent.title %></p>
 					</div>
 					<div class="row stat-row">
-						<p class="stat-text">📊 Level: 0</p>
+						<p class="stat-text">📊 Level: <%- Math.floor(thisStudent.xp / 1000) %></p>
 					</div>
 					<div class="row stat-row">
 						<p class="stat-text">䷩ Experience Points: <%- thisStudent.xp %></p>
@@ -41,13 +58,13 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="row stat-row">
-						<p class="stat-text"><span style="color: red; font-size: 26pt">♥</span> Health: 100</p>
+						<p class="stat-text"><span style="color: red; font-size: 26pt">♥</span> HP Points: <%- thisStudent.health %></p>
 					</div>
 					<div class="row stat-row">
 						<p class="stat-text">⭐ Stars: <%- thisStudent.stars %></p>
 					</div>
 					<div class="row stat-row">
-						<p class="stat-text">♥ Status: strong</p>
+						<p class="stat-text">♥ Status: <%- studentStatus %></p>
 					</div>
 				</div>
 				<div class="col-sm-8">

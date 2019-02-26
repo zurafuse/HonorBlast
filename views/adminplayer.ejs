@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>QUESTS - Honor Blast</title>
+	<%- include sharedcontent/head.ejs %>
+</head>
+<body>
+<%- include sharedcontent/header.ejs %>
+<% var thisStudent = {};
+	for (var i = 0; i < INFO.players.length; i++){
+		if (INFO.players[i].id == ID){
+			thisStudent = INFO.players[i];
+		}
+	}
+	%>
+	<section class="main-container">
+		<br>
+		<div class="container-fluid">	
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="row stat-row">
+						<div class="col-sm-5">
+							<svg class="img-responsive " viewBox="0 0 400 400" width="70%" height="70%" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" alt="Avatar"><%- thisStudent.img %></svg>
+						</div>
+					</div>	
+					<div class="row stat-row" >
+						<p class="stat-text" style="float: left;"><span style="color: red; font-size: 26pt; ">♥</span> HP Points:&nbsp;&nbsp;</p>
+						<div id="input_div">
+							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.health %>" id="heartcount">
+							<input type="button" value="-" id="moins" onclick="heartminus()">
+							<input type="button" value="+" id="plus" onclick="heartplus()">
+						</div>
+					</div>
+					<div class="row stat-row">
+						<p class="stat-text" style="float: left;"><span style="font-size: 26pt">⭐</span> Stars:&nbsp;&nbsp;</p>
+						<div id="input_div">
+							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.stars %>" id="starcount">
+							<input type="button" value="-" id="moins" onclick="starminus()">
+							<input type="button" value="+" id="plus" onclick="starplus()">
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<div class="row stat-row">
+						<p class="stat-text">👤 Name: <%- thisStudent.name %></p>
+					</div>
+					<div class="row stat-row">
+						<p class="stat-text">👤 Nickname: <%- thisStudent.username %></p>
+					</div>
+					<div class="row stat-row">
+						<p class="stat-text">🎖 Rank: <%- thisStudent.title %></p>
+					</div>
+					<div class="row stat-row">
+						<p class="stat-text" style="float: left;"><span style="font-size: 26pt">䷩</span> Experience Points: &nbsp;&nbsp;&nbsp;</p>
+						<div id="input_div">
+							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.xp %>" id="xpcount">
+							<input type="button" value="-" id="moins" onclick="xpminus()">
+							<input type="button" value="+" id="plus" onclick="xpplus()">
+						</div>						
+					</div>
+					<div class="row stat-row">
+						<p class="stat-text" style="float: left;"><span style="font-size: 26pt">¤</span> Coins: &nbsp;&nbsp;&nbsp;</p>
+						<div id="input_div">
+							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.money %>" id="coincount">
+							<input type="button" value="-" id="moins" onclick="coinminus()">
+							<input type="button" value="+" id="plus" onclick="coinplus()">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		
+	</section>	
+	<%- include sharedcontent/footer.ejs %>
+	<script src="/js/counter.js"></script>
+	<script src="/js/app.js"></script>
+	<script src="/js/menu.js"></script>
+</body>
+</html>

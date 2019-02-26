@@ -20,7 +20,7 @@ module.exports = function (app) {
 		});
 			
 	});	
-
+	
 	//home page
 	app.get("/home", (request, response) => {
 		response.render("home", { INFO: obj, DATE: (new Date().getYear()) + 1900 });	
@@ -70,5 +70,11 @@ module.exports = function (app) {
 	app.get("/admin", (request, response) => {
 		response.render("adminindex", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
 	});		
+
+	//admin
+	app.get("/admin/player/:id", (request, response) => {
+		response.render("adminplayer", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+	});
+
 	
 };
