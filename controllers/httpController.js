@@ -15,7 +15,7 @@ module.exports = function (app) {
 	//Login home page
     app.post("/home", (request, response) => {
 		model(app, {user: request.body.uname, pwd: request.body.psw}, (objectModel) => {
-			response.render("loggedin", { DATE: (new Date().getYear()) + 1900 });
+			response.render("loggedin", {INFO: objectModel, DATE: (new Date().getYear()) + 1900 });
 			obj = objectModel;
 		});
 			
