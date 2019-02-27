@@ -1,8 +1,6 @@
 
 module.exports = function (app, login, callback) {
-	
-	console.log(login.money);
-	
+		
 	const con = require("../model/connection");
 	var connection = con(login.user, login.pwd);
 	
@@ -32,9 +30,10 @@ module.exports = function (app, login, callback) {
 		} else {
 			console.log("Error connecting database ... nn");
 		}
-	});	
+	});
 	
-
+	var parentnumber = -1;
+	
 	var studentModel = {
 		players: [],
 		prizes: [],
@@ -43,6 +42,90 @@ module.exports = function (app, login, callback) {
         quests: [],
         studenttrophies: [],
         studentprizes: []
+    };
+	
+	var getparentid = () => {
+		connection.query(`SELECT * FROM users WHERE email = "zurafuse@gmail.com"`, (err, result, fields) => {
+			if (err){
+				throw err;
+			}
+			else {
+				parentnumber = result[0].id;
+				makeChanges();
+			}
+		});	
+	}
+	
+	var makeChanges = () => {
+		//update changes
+		var changes = login;	
+		if (changes.money != "default"){
+			connection.query(`UPDATE students SET money = ${changes.money} WHERE id = ${login.studentid};`, (err, result, fields) => {
+				if (err) throw err;				
+			});
+			
+		}
+		if (changes.health != "default"){
+			connection.query(`UPDATE students SET health = ${changes.health} WHERE id = ${login.studentid};`, (err, result, fields) => {
+				if (err) throw err;
+			});			
+		}
+		if (changes.xp != "default"){
+			connection.query(`UPDATE students SET xp = ${changes.xp} WHERE id = ${login.studentid};`, (err, result, fields) => {
+				if (err) throw err;
+			});			
+		}
+		if (changes.stars != "default"){
+			connection.query(`UPDATE students SET stars = ${changes.stars} WHERE id = ${login.studentid};`, (err, result, fields) => {
+				if (err) throw err;
+			});			
+		}
+		if (changes.name != "default"){
+			connection.query(`UPDATE students SET name = '${changes.name}' WHERE id = ${login.studentid};`, (err, result, fields) => {
+				if (err) throw err;
+			});			
+		}
+		if (changes.nickname != "default"){
+			connection.query(`UPDATE students SET username = '${changes.nickname}' WHERE id = ${login.studentid};`, (err, result, fields) => {
+				if (err) throw err;
+			});			
+		}
+		if (changes.rank != "default"){
+			connection.query(`UPDATE students SET title = '${changes.rank}' WHERE id = ${login.studentid};`, (err, result, fields) => {
+				if (err) throw err;
+			});			
+		}
+		populateArrays();	
+	};
+	
+    var populateArrays = () => {		
+        //populate students/players
+        connection.query(`SELECT * FROM students WHERE parentid = ${Number(parentnumber)}`, function (err, result, fields) {
+            if (err) throw err;
+            studentModel.players = result;
+            populateStudentInfo();
+        });
+
+        //populate prizes
+        try {
+            connection.query(`SELECT * from prizes WHERE parentid = ${Number(parentnumber)}`, function (err, result, fields) {
+                if (err) { throw err; }
+                else { studentModel.prizes = result; }
+            });
+        }
+        catch (err) {
+            console.log(err);
+        }
+        //populate trophies
+        try {
+            connection.query(`SELECT * from trophies WHERE ${Number(parentnumber)}`, function (err, result, fields) {
+                if (err) { throw err; }
+                else { studentModel.trophies = result; }
+            });
+        }
+        catch (err) {
+            console.log(err);
+        }
     };
 
     var populateStudentInfo = () => {
@@ -78,37 +161,7 @@ module.exports = function (app, login, callback) {
             });
         }
     }
-
-    var populateArrays = () => {
-        //populate students/players
-        connection.query("SELECT * FROM students WHERE parentid = 1", function (err, result, fields) {
-            if (err) throw err;
-            studentModel.players = result;
-            populateStudentInfo();
-        });
-
-        //populate prizes
-        try {
-            connection.query('SELECT * from prizes WHERE parentid = 1', function (err, result, fields) {
-                if (err) { throw err; }
-                else { studentModel.prizes = result; }
-            });
-        }
-        catch (err) {
-            console.log(err);
-        }
-        //populate trophies
-        try {
-            connection.query('SELECT * from trophies WHERE parentid = 1', function (err, result, fields) {
-                if (err) { throw err; }
-                else { studentModel.trophies = result; }
-            });
-        }
-        catch (err) {
-            console.log(err);
-        }
-    };
 	
-    populateArrays();
+	getparentid();	
     callback(studentModel);
 };

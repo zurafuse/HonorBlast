@@ -77,11 +77,14 @@ module.exports = function (app) {
 		response.render("adminplayer", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
 	});
 
-	//admin player management
+	//admin player update
 	app.post("/admin/update", (request, response) => {
 		updatemodel(app, {user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
-			health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars}, (objectModel) => {		
+			health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars, 
+			name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
+			studentid: request.body.studentid}, (objectModel) => {		
 		response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+		obj = objectModel;
 		});
 	});
 	

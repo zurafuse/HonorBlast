@@ -1,6 +1,6 @@
 
 module.exports = function (app, login, callback) {
-	
+
 	const con = require("../model/connection");
 	var connection = con(login.user, login.pwd);
 	
@@ -30,9 +30,10 @@ module.exports = function (app, login, callback) {
 		} else {
 			console.log("Error connecting database ... nn");
 		}
-	});	
-	
+	});
 
+	var parentnumber = -1;
+	
 	var studentModel = {
 		players: [],
 		prizes: [],
@@ -42,6 +43,19 @@ module.exports = function (app, login, callback) {
         studenttrophies: [],
         studentprizes: []
     };
+	
+	var getparentid = () => {
+		connection.query(`SELECT * FROM users WHERE email = "zurafuse@gmail.com"`, (err, result, fields) => {
+			if (err){
+				throw err;
+			}
+			else {
+				parentnumber = result[0].id;
+				console.log(Number(parentnumber));
+				populateArrays();
+			}
+		});	
+	}
 
     var populateStudentInfo = () => {
         for (var i = 0; i < studentModel.players.length; i++) {
@@ -79,7 +93,7 @@ module.exports = function (app, login, callback) {
 
     var populateArrays = () => {
         //populate students/players
-        connection.query("SELECT * FROM students WHERE parentid = 1", function (err, result, fields) {
+        connection.query(`SELECT * FROM students  WHERE parentid = ${Number(parentnumber)}`, function (err, result, fields) {
             if (err) throw err;
             studentModel.players = result;
             populateStudentInfo();
@@ -87,7 +101,7 @@ module.exports = function (app, login, callback) {
 
         //populate prizes
         try {
-            connection.query('SELECT * from prizes WHERE parentid = 1', function (err, result, fields) {
+            connection.query(`SELECT * from prizes  WHERE parentid = ${Number(parentnumber)}`, function (err, result, fields) {
                 if (err) { throw err; }
                 else { studentModel.prizes = result; }
             });
@@ -97,7 +111,7 @@ module.exports = function (app, login, callback) {
         }
         //populate trophies
         try {
-            connection.query('SELECT * from trophies WHERE parentid = 1', function (err, result, fields) {
+            connection.query(`SELECT * from trophies  WHERE parentid = ${Number(parentnumber)}`, function (err, result, fields) {
                 if (err) { throw err; }
                 else { studentModel.trophies = result; }
             });
@@ -107,6 +121,6 @@ module.exports = function (app, login, callback) {
         }
     };
 	
-    populateArrays();
+	getparentid();
     callback(studentModel);
 };
