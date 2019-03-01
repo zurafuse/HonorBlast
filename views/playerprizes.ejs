@@ -22,10 +22,10 @@
 						for (var j = 0; j < INFO.prizes.length; j++){ 
 						if (INFO.prizes[j].id == INFO.studentprizes[i].prize) { %>
 						<div class="col-sm-3 avatar-col">
-							<h3><%- INFO.prizes[j].description %></h3>
+							<h3><%- INFO.prizes[j].name %></h3>
 							<figure>
 								<img class="img-responsive player-img"  alt="Prize" src="<%- INFO.prizes[j].img %>" />
-								<figcaption><%- INFO.studentprizes[i].details %></figcaption>
+								<figcaption><%- INFO.prizes[j].description %></figcaption>
 							</figure>
 						</div>
 						<% }}

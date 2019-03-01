@@ -6,41 +6,29 @@
 </head>
 <body>
 <%- include sharedcontent/header.ejs %>
-<% var thisStudent = {};
-	for (var i = 0; i < INFO.players.length; i++){
-		if (INFO.players[i].id == ID){
-			thisStudent = INFO.players[i];
-		}
-	}
-	%>
 	<section class="main-container">
 		<br>
 		<div class="container-fluid">	
-			<div class="row" id="control-content">
+			<div class="row">
 				<div class="col-sm-5">
-					<div class="row stat-row">
-						<div class="col-sm-5">
-							<%- thisStudent.img %>
-						</div>
-					</div>
 					<div class="row stat-row" style="background-color: #484858;">
 						<p>Get SVG code from <a href="https://avatarmaker.com/" target="_blank">this avatar site</a>.</p>
-						<p class="stat-text" style="color: white;"><span class="icon-size"></span>SVG avatar image:&nbsp;&nbsp;</p>	
+						<p class="stat-text" style="color: white;"><span style="font-size: 26pt; ">👤</span>Insert SVG avatar image:&nbsp;&nbsp;</p>	
 						<textarea style="width: 100%; color: black;" type="textarea" rows="4" id="imgfield" onchange="updateImg()">
-<%- thisStudent.img %></textarea>
-					</div>
+ENTER SVG CONTENT HERE</textarea>
+					</div>	
 					<div class="row stat-row" >
-						<p class="stat-text left-float"><span class="icon-size red-font">♥</span> HP Points:&nbsp;&nbsp;</p>
+						<p class="stat-text" style="float: left;"><span style="color: red; font-size: 26pt; ">♥</span> HP Points:&nbsp;&nbsp;</p>
 						<div id="input_div">
-							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.health %>" id="heartcount" onchange="updateHealth()">
+							<input style="width: 30%;" type="text" size="25" value="100" id="heartcount" onchange="updateHealth()">
 							<input type="button" value="-" id="moins" onclick="heartminus()">
 							<input type="button" value="+" id="plus" onclick="heartplus()">
 						</div>
 					</div>
 					<div class="row stat-row">
-						<p class="stat-text left-float"><span class="icon-size">⭐</span> Stars:&nbsp;&nbsp;</p>
+						<p class="stat-text" style="float: left;"><span style="font-size: 26pt">⭐</span> Stars:&nbsp;&nbsp;</p>
 						<div id="input_div">
-							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.stars %>" id="starcount" onchange="updateStars()">
+							<input style="width: 30%;" type="text" size="25" value="0" id="starcount" onchange="updateStars()">
 							<input type="button" value="-" id="moins" onclick="starminus()">
 							<input type="button" value="+" id="plus" onclick="starplus()">
 						</div>
@@ -48,36 +36,31 @@
 				</div>
 				<div class="col-sm-5">
 					<div class="row stat-row">
-						<p class="stat-text left-float"><span class="icon-size">👤</span> Name: &nbsp;&nbsp;&nbsp;</p>
-						<input style="width: 40%;" type="text" size="90" value="<%- thisStudent.name %>" id="namefield" onchange="updateName()">
+						<p class="stat-text" style="float: left;"><span style="font-size: 26pt">👤</span> Name: &nbsp;&nbsp;&nbsp;</p>
+						<input style="width: 40%;" type="text" size="90" value="ENTER NAME HERE" id="namefield" onchange="updateName()">
 					</div>
 					<div class="row stat-row">
-						<p class="stat-text left-float" "><span class="icon-size">👤</span> Nickname: &nbsp;&nbsp;&nbsp;</p>
-						<input style="width: 40%;" type="text" size="90" value="<%- thisStudent.username %>" id="nicknamefield" onchange="updateUser()">
+						<p class="stat-text" style="float: left;"><span style="font-size: 26pt">👤</span> Nickname: &nbsp;&nbsp;&nbsp;</p>
+						<input style="width: 40%;" type="text" size="90" value="ENTER A NICKNAME HERE" id="nicknamefield" onchange="updateUser()">
 					</div>
 					<div class="row stat-row">
-						<p class="stat-text left-float" ><span class="icon-size">🎖</span> Rank: &nbsp;&nbsp;&nbsp;</p>
-						<input style="width: 40%;" type="text" size="90" value="<%- thisStudent.title %>" id="rankfield" onchange="updateRank()">						
+						<p class="stat-text" style="float: left;"><span style="font-size: 26pt">🎖</span> Rank: &nbsp;&nbsp;&nbsp;</p>
+						<input style="width: 40%;" type="text" size="90" value="ENTER TITLE OR RANK" id="rankfield" onchange="updateRank()">						
 					</div>
 					<div class="row stat-row">
-						<p class="stat-text left-float"><span class="icon-size">䷩</span> Experience Points: &nbsp;&nbsp;&nbsp;</p>
+						<p class="stat-text" style="float: left;"><span style="font-size: 26pt">䷩</span> Experience Points: &nbsp;&nbsp;&nbsp;</p>
 						<div id="input_div">
-							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.xp %>" id="xpcount" onchange="updateXP()">
+							<input style="width: 30%;" type="text" size="25" value="0" id="xpcount" onchange="updateXP()">
 							<input type="button" value="-" id="moins" onclick="xpminus()">
 							<input type="button" value="+" id="plus" onclick="xpplus()">
 						</div>						
 					</div>
 					<div class="row stat-row">
-						<p class="stat-text left-float"><span class="icon-size">¤</span> Coins: &nbsp;&nbsp;&nbsp;</p>
+						<p class="stat-text" style="float: left;"><span style="font-size: 26pt">¤</span> Coins: &nbsp;&nbsp;&nbsp;</p>
 						<div id="input_div">
-							<input style="width: 30%;" type="text" size="25" value="<%- thisStudent.money %>" id="coincount" onchange="updateCoins()">
+							<input style="width: 30%;" type="text" size="25" value="0" id="coincount" onchange="updateCoins()">
 							<input type="button" value="-" id="moins" onclick="coinminus()">
 							<input type="button" value="+" id="plus" onclick="coinplus()">
-						</div>
-					</div>
-					<div class="row stat-row">
-						<div class="delete-button stat-text left-float">
-							<button onclick="deletePlayer()">DELETE PLAYER</button>
 						</div>
 					</div>
 				</div>
@@ -85,7 +68,7 @@
 			<div class="row">
 				<div class="container-fluid">
 				<h2 class="title2 ">Enter Username and Password to Commit Update</h2>
-				<form action="/admin/update" method="post">	
+				<form action="/admin/add" method="post">	
 					<div class="container">
 						<label for="uname"><b>Username</b></label>
 						<input type="text" placeholder="Enter Username" name="uname" id="uname" required onchange="updateFields()">
@@ -99,14 +82,14 @@
 						<input type="hidden" id="submituser" name="submituser" value="">						
 						<input type="hidden" id="submitrank" name="submitrank" value="">
 						<input type="hidden" id="submitimg" name="submitimg" value="">
-						<input type="hidden" id="studentid" name="studentid" value="<%- thisStudent.id %>">	
-						<input type="hidden" id="submitdelete" name="submitdelete" value="false">						
+						<input type="hidden" id="parentid" name="parentid" value="<%- INFO.parentid %>">						
 						<button type="submit" class="login-button">UPDATE</button>
 					</div>
 				</form>
 				</div>				
 			</div>
-	</div>
+		</div>
+		</div>
 		
 	</section>	
 	<%- include sharedcontent/footer.ejs %>

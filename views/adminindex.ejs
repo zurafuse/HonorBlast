@@ -9,10 +9,10 @@
 	<section class="main-container">
 		<br>
 		<div class="container-fluid">
-		<h2 class="title2 ">SELECT A STUDENT TO MANAGE OR CREATE A NEW ONE</h2>
+		<h2 class="title2 ">SELECT A STUDENT TO MANAGE, OR CREATE A NEW ONE</h2>
 		
 					<div class="row stat-row">
-						<a href="#"><button class="user-quests stat-button">📜 Manage Quests</button></a>
+						<a href="/admin/quests"><button class="user-quests stat-button">📜 Manage Quests</button></a>
 					</div>
 					<div class="row stat-row">
 						<a href="#"><button class="user-prizes stat-button">🏅 Manage Prizes</button></a>
@@ -21,27 +21,27 @@
 						<a href="#"><button class="user-trophies stat-button">🏆 Manage Trophies</button></a>
 					</div>
 					
-			<div class="row players0">
-			<% for (var i = 0; i < INFO.players.length; i++){ %>
-				<a href="admin/player/<%- INFO.players[i].id %>">
-				<div class="col-sm-3 avatar-col ">
-					<div class="avatar-name" id="user<%-INFO.players[i].id%>">
-						<h3 class="player-img avatar-name"><%- INFO.players[i].name %></h3>
-						<svg class="img-responsive player-img " viewBox="0 0 400 400" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" alt="Avatar"><%- INFO.players[i].img %></svg>
-						<h5 class="player-img "><%- INFO.players[i].username %></h5>
-					</div><br>
-				</div>
-				</a>
-			<% } %>
-				<a href="admin/player/newplayer">
-				<div class="col-sm-3 avatar-col ">
-					<div class="avatar-name" id="newuser">
-						<h3 class="player-img avatar-name">ADD A NEW PLAYER</h3>
-						<img class="img-responsive player-img " src="/images/newplayer.png" alt="Avatar" />
-					</div><br>
-				</div>	
-				</a>				
-			</div>
+                    <div class="row players0">
+                        <a href="admin/newplayer">
+                            <div class="col-sm-3 avatar-col ">
+                                <div class="avatar-name" id="newuser">
+                                    <h3 class="player-img avatar-name">ADD A NEW PLAYER</h3>
+                                    <img class="img-responsive player-img " src="/images/newplayer.png" alt="Avatar" />
+                                </div><br>
+                            </div>
+                        </a>
+                        <% for (var i = 0; i < INFO.players.length; i++){ %>
+                        <a href="admin/player/<%- INFO.players[i].id %>">
+                            <div class="col-sm-3 avatar-col ">
+                                <div class="avatar-name" id="user<%-INFO.players[i].id%>">
+                                    <h3 class="player-img avatar-name"><%- INFO.players[i].name %></h3>
+                                    <%- INFO.players[i].img %>
+                                    <h5 class="player-img "><%- INFO.players[i].username %></h5>
+                                </div><br>
+                            </div>
+                        </a>
+                        <% } %>
+                    </div>
 		</div>
 	</section>	
 	<%- include sharedcontent/footer.ejs %>

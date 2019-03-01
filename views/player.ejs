@@ -35,7 +35,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-4">
-					<svg class="img-responsive " viewBox="0 0 400 400" width="70%" height="70%" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" alt="Avatar"><%- thisStudent.img %></svg>
+					<%- thisStudent.img %>
 				</div>
 				<div class="col-sm-8">
 					<div class="row stat-row">
@@ -53,10 +53,6 @@
 					<div class="row stat-row">
 						<p class="stat-text"><span style="font-size: 26pt">¤</span> Coins: <%- thisStudent.money %></p>
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
 					<div class="row stat-row">
 						<p class="stat-text"><span style="color: red; font-size: 26pt">♥</span> HP Points: <%- thisStudent.health %></p>
 					</div>
@@ -67,7 +63,10 @@
 						<p class="stat-text">♥ Status: <%- studentStatus %></p>
 					</div>
 				</div>
-				<div class="col-sm-8">
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+
 					<div class="row stat-row">
 						<a href="/player/<%- thisStudent.id %>/quests"><button class="user-quests stat-button">📜 Quests</button></a>
 					</div>
@@ -76,7 +75,11 @@
 					</div>
 					<div class="row stat-row">
 						<a href="/player/<%- thisStudent.id %>/trophies"><button class="user-trophies stat-button">🏆 Trophies</button></a>
-					</div>
+					</div>					
+					
+				</div>
+				<div class="col-sm-8">
+
 				</div>
 			</div>
 		</div>

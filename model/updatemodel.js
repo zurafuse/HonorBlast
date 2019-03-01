@@ -3,7 +3,7 @@ module.exports = function (app, login, callback) {
 		
 	const con = require("../model/connection");
 	var connection = con(login.user, login.pwd);
-	
+		
 	function handleDisconnect(conn) {
 		conn.on('error', function (err) {
 			if (!err.fatal) {
@@ -32,9 +32,8 @@ module.exports = function (app, login, callback) {
 		}
 	});
 	
-	var parentnumber = -1;
-	
 	var studentModel = {
+		parentid: -1,
 		players: [],
 		prizes: [],
 		trophies: [],
@@ -44,21 +43,32 @@ module.exports = function (app, login, callback) {
         studentprizes: []
     };
 	
-	var getparentid = () => {
+	var getStarted = () => {
 		connection.query(`SELECT * FROM users WHERE email = "zurafuse@gmail.com"`, (err, result, fields) => {
 			if (err){
 				throw err;
 			}
 			else {
-				parentnumber = result[0].id;
-				makeChanges();
+				studentModel.parentid = result[0].id;
+				doDeletes();
 			}
 		});	
 	}
 	
+	var doDeletes = () => {
+		if (login.remove == "true"){
+			connection.query(`DELETE FROM students WHERE id = ${login.studentid};`, (err, result, fields) => {
+				if (err) throw err;			
+			});			
+		}
+		makeChanges();
+	};
+	
 	var makeChanges = () => {
-		//update changes
-		var changes = login;	
+		var changes = login;
+		var charImage = changes.img;
+		
+		//update changes	
 		if (changes.money != "default"){
 			connection.query(`UPDATE students SET money = ${changes.money} WHERE id = ${login.studentid};`, (err, result, fields) => {
 				if (err) throw err;				
@@ -95,12 +105,17 @@ module.exports = function (app, login, callback) {
 				if (err) throw err;
 			});			
 		}
+		if (charImage != "default"){
+			connection.query(`UPDATE students SET img = '${charImage}' WHERE id = ${login.studentid};`, (err, result, fields) => {
+				if (err) throw err;
+			});		
+		}
 		populateArrays();	
 	};
 	
     var populateArrays = () => {		
         //populate students/players
-        connection.query(`SELECT * FROM students WHERE parentid = ${Number(parentnumber)}`, function (err, result, fields) {
+        connection.query(`SELECT * FROM students WHERE parentid = ${Number(studentModel.parentid)}`, function (err, result, fields) {
             if (err) throw err;
             studentModel.players = result;
             populateStudentInfo();
@@ -108,7 +123,7 @@ module.exports = function (app, login, callback) {
 
         //populate prizes
         try {
-            connection.query(`SELECT * from prizes WHERE parentid = ${Number(parentnumber)}`, function (err, result, fields) {
+            connection.query(`SELECT * from prizes WHERE parentid = ${Number(studentModel.parentid)}`, function (err, result, fields) {
                 if (err) { throw err; }
                 else { studentModel.prizes = result; }
             });
@@ -118,7 +133,7 @@ module.exports = function (app, login, callback) {
         }
         //populate trophies
         try {
-            connection.query(`SELECT * from trophies WHERE ${Number(parentnumber)}`, function (err, result, fields) {
+            connection.query(`SELECT * from trophies WHERE ${Number(studentModel.parentid)}`, function (err, result, fields) {
                 if (err) { throw err; }
                 else { studentModel.trophies = result; }
             });
@@ -162,6 +177,6 @@ module.exports = function (app, login, callback) {
         }
     }
 	
-	getparentid();	
+	getStarted();	
     callback(studentModel);
 };

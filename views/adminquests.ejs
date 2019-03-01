@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>QUESTS - Honor Blast</title>
+	<%- include sharedcontent/head.ejs %>
+</head>
+<body>
+<%- include sharedcontent/header.ejs %>
+	<section class="main-container">
+		<br>
+			<div class="container-fluid">
+				<div class="row"><h2 class="title2">Click on a quest to manage it, or create a new one.</h2></div>
+                <div class="row stat-row"><a href="/admin/newquest" class="menu-links"><p class="stat-text"><span class="blue-unicode">＋</span> CREATE NEW QUEST</p></a></div>				
+                <% for (var i = 0; i < INFO.quests.length; i++){
+				var studentname = "student";
+				for (var j = 0; j < INFO.players.length; j++){
+					if (INFO.players[j].id == INFO.quests[i].studentid){
+						studentname = INFO.players[j].name;
+					}
+				}
+				%>
+					<div class="row stat-row"><a href="/admin/quests/<%- INFO.quests[i].id %>" class="menu-links"><p class="stat-text"><%- INFO.quests[i].name %>: <%- INFO.quests[i].description %> - assigned to <%- studentname %></p></a></div>
+				<% } %>	
+			</div>
+	</section>	
+	<%- include sharedcontent/footer.ejs %>
+	
+	<script src="/js/app.js"></script>
+	<script src="/js/menu.js"></script>
+</body>
+</html>

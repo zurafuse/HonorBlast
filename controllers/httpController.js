@@ -1,6 +1,7 @@
 const bodyParser = require("body-parser");
 const model = require("../model/model");
 const updatemodel = require("../model/updatemodel");
+const addmodel = require("../model/addmodel");
 
 module.exports = function (app) {
 	app.use(bodyParser.urlencoded({
@@ -66,7 +67,8 @@ module.exports = function (app) {
 	app.get("/player/:id/prizes", (request, response) => {
 		response.render("playerprizes", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
 	});
-	
+
+//PLAYER MANAGEMENT
 	//admin
 	app.get("/admin", (request, response) => {
 		response.render("adminindex", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
@@ -76,16 +78,81 @@ module.exports = function (app) {
 	app.get("/admin/player/:id", (request, response) => {
 		response.render("adminplayer", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
 	});
+	
+	//admin add new player
+	app.get("/admin/newplayer", (request, response) => {
+		response.render("newplayer", { INFO: obj, DATE: (new Date().getYear()) + 1900 });
+	});
 
 	//admin player update
 	app.post("/admin/update", (request, response) => {
-		updatemodel(app, {user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
-			health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars, 
-			name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
-			studentid: request.body.studentid}, (objectModel) => {		
+		updatemodel(
+			app, 
+			{user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
+				health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars, 
+				name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
+				studentid: request.body.studentid, img: request.body.submitimg, remove: request.body.submitdelete}, 
+			(objectModel) => {		
 		response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
 		obj = objectModel;
 		});
 	});
+	
+	//admin player add
+	app.post("/admin/add", (request, response) => {
+		addmodel(app, {user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
+			health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars, 
+			name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
+			studentid: request.body.studentid, img: request.body.submitimg}, (objectModel) => {		
+		response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+		obj = objectModel;
+		});
+	});
+
+//QUEST MANAGEMENT
+    //admin quests
+    app.get("/admin/quests", (request, response) => {
+        response.render("adminquests", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+    });
+
+    //admin quest management
+    app.get("/admin/quests/:id", (request, response) => {
+        response.render("managequest", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+    });
+
+    //admin add new quest
+    app.get("/admin/newquest", (request, response) => {
+        response.render("newquest", { INFO: obj, DATE: (new Date().getYear()) + 1900 });
+    });
+
+    //admin quest update
+    app.post("/admin/quests/update", (request, response) => {
+        updatemodel(
+            app,
+            {
+                user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
+                health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars,
+                name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
+                studentid: request.body.studentid, img: request.body.submitimg, remove: request.body.submitdelete
+            },
+            (objectModel) => {
+                response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+                obj = objectModel;
+            });
+    });
+
+    //admin quest add
+    app.post("/admin/quests/add", (request, response) => {
+        addmodel(app, {
+            user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
+            health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars,
+            name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
+            studentid: request.body.studentid, img: request.body.submitimg
+        }, (objectModel) => {
+            response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+            obj = objectModel;
+        });
+    });
+
 	
 };

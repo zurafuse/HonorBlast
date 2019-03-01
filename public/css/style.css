@@ -38,10 +38,36 @@ html {
 	color: white;
 }
 
+.blue-unicode {
+    color: blue;
+    font-weight: bold;
+}
+
 .vcenter {
     display: inline-block;
     vertical-align: middle;
     float: none;
+}
+
+.delete-button {
+	font-size: 18pt;
+	margin: auto;
+}
+
+.text-box-style {
+	width: 40%;
+}
+
+.left-float {
+	float: left;	
+}
+
+.icon-size {
+	font-size: 26pt;
+}
+
+.red-font {
+	color: red;
 }
 
 .logo {
