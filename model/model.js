@@ -43,7 +43,7 @@ module.exports = function (app, login, callback) {
     };
 	
 	var getparentid = () => {
-		connection.query(`SELECT * FROM users WHERE email = "zurafuse@gmail.com"`, (err, result, fields) => {
+		connection.query(`SELECT * FROM users WHERE email = "${login.user}"`, (err, result, fields) => {
 			if (err){
 				throw err;
 			}
@@ -79,7 +79,7 @@ module.exports = function (app, login, callback) {
             });
 
             //populate activities
-            connection.query(`SELECT description, DATE_FORMAT(adate, '%m/%d/%Y %H:%i') as 'date' FROM activities WHERE studentid = ${studentModel.players[i].id}`, (err, activityResult, fields) => {
+            connection.query(`SELECT description, DATE_FORMAT(adate, '%m/%d/%Y ') as 'date' FROM activities WHERE studentid = ${studentModel.players[i].id}`, (err, activityResult, fields) => {
                 if (err) throw err;
                 for (var j = 0; j < activityResult.length; j++) {
                     studentModel.activities.push(activityResult[j]);

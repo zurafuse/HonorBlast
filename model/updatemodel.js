@@ -44,7 +44,7 @@ module.exports = function (app, login, callback) {
     };
 	
 	var getStarted = () => {
-		connection.query(`SELECT * FROM users WHERE email = "zurafuse@gmail.com"`, (err, result, fields) => {
+        connection.query(`SELECT * FROM users WHERE email = "${login.user}"`, (err, result, fields) => {
 			if (err){
 				throw err;
 			}
@@ -56,60 +56,137 @@ module.exports = function (app, login, callback) {
 	}
 	
 	var doDeletes = () => {
-		if (login.remove == "true"){
+        if (login.remove == "true") {
+            if (login.type == "quest") {
+                connection.query(`DELETE FROM quests WHERE id = ${login.quest};`, (err, result, fields) => {
+                    if (err) throw err;
+                });
+            }
+            if (login.type == "prize") {
+                connection.query(`DELETE FROM prizes WHERE id = ${login.prize};`, (err, result, fields) => {
+                    if (err) throw err;
+                });
+            }
+            else {
 			connection.query(`DELETE FROM students WHERE id = ${login.studentid};`, (err, result, fields) => {
 				if (err) throw err;			
-			});			
+                });
+            }
 		}
 		makeChanges();
 	};
 	
 	var makeChanges = () => {
 		var changes = login;
-		var charImage = changes.img;
-		
-		//update changes	
-		if (changes.money != "default"){
-			connection.query(`UPDATE students SET money = ${changes.money} WHERE id = ${login.studentid};`, (err, result, fields) => {
-				if (err) throw err;				
-			});
-			
-		}
-		if (changes.health != "default"){
-			connection.query(`UPDATE students SET health = ${changes.health} WHERE id = ${login.studentid};`, (err, result, fields) => {
-				if (err) throw err;
-			});			
-		}
-		if (changes.xp != "default"){
-			connection.query(`UPDATE students SET xp = ${changes.xp} WHERE id = ${login.studentid};`, (err, result, fields) => {
-				if (err) throw err;
-			});			
-		}
-		if (changes.stars != "default"){
-			connection.query(`UPDATE students SET stars = ${changes.stars} WHERE id = ${login.studentid};`, (err, result, fields) => {
-				if (err) throw err;
-			});			
-		}
-		if (changes.name != "default"){
-			connection.query(`UPDATE students SET name = '${changes.name}' WHERE id = ${login.studentid};`, (err, result, fields) => {
-				if (err) throw err;
-			});			
-		}
-		if (changes.nickname != "default"){
-			connection.query(`UPDATE students SET username = '${changes.nickname}' WHERE id = ${login.studentid};`, (err, result, fields) => {
-				if (err) throw err;
-			});			
-		}
-		if (changes.rank != "default"){
-			connection.query(`UPDATE students SET title = '${changes.rank}' WHERE id = ${login.studentid};`, (err, result, fields) => {
-				if (err) throw err;
-			});			
-		}
-		if (charImage != "default"){
-			connection.query(`UPDATE students SET img = '${charImage}' WHERE id = ${login.studentid};`, (err, result, fields) => {
-				if (err) throw err;
-			});		
-		}
+        var charImage = changes.img;
+
+        if (changes.type == "quest") {
+            changes.questName = changes.questName.replace("'", "''");
+            changes.questDescription = changes.questDescription.replace("'", "''");
+
+            //update changes for quest          
+            if (changes.questName != "default") {
+                connection.query(`UPDATE quests SET name = '${changes.questName}' WHERE id = ${changes.quest};`, (err, result, fields) => {
+                    if (err) throw err;
+                });
+            }  
+            if (changes.questDescription != "default") {
+                connection.query(`UPDATE quests SET description = '${changes.questDescription}' WHERE id = ${changes.quest};`, (err, result, fields) => {
+                    if (err) throw err;
+                });
+            } 
+            if (changes.studentid != "default") {
+                connection.query(`UPDATE quests SET studentid = ${changes.studentid} WHERE id = ${changes.quest};`, (err, result, fields) => {
+                    if (err) throw err;
+                });
+            } 
+            if (changes.complete == "true") {
+                connection.query(`UPDATE quests SET complete = 1 WHERE id = ${changes.quest};`,
+                    (err, result, fields) => {
+                    if (err) throw err;
+                });
+                connection.query(`INSERT INTO activities(studentid, description, adate)VALUES(${changes.studentid}, '${changes.studentname} has completed the ${changes.questName} Task and has won these prizes: ${changes.prizes}.', 
+                    CURDATE());`, (err, result, fields) => {
+                        if (err) throw err;
+                    });
+            }
+            if (changes.prizes != "default") {
+                connection.query(`UPDATE quests SET prizes = '${changes.prizes}' WHERE id = ${changes.quest};`, (err, result, fields) => {
+                    if (err) throw err;
+                });
+            }
+        }
+
+        else if (changes.type == "prize") {
+            changes.prizeName = changes.prizeName.replace("'", "''");
+            changes.prizeDescription = changes.prizeDescription.replace("'", "''");
+
+            //update changes for quest          
+            if (changes.prizeName != "default") {
+                connection.query(`UPDATE prizes SET name = '${changes.prizeName}' WHERE id = ${changes.prize};`, (err, result, fields) => {
+                    if (err) { throw err; }
+                });
+            }
+            if (changes.prizeDescription != "default") {
+                connection.query(`UPDATE prizes SET description = '${changes.prizeDescription}' WHERE id = ${changes.prize};`, (err, result, fields) => {
+                    if (err) { throw err; }
+                });
+            }
+            if (changes.cost != "default") {
+                connection.query(`UPDATE prizes SET cost = ${changes.cost} WHERE id = ${changes.prize};`, (err, result, fields) => {
+                    if (err) { throw err; }
+                });
+            }
+        }
+
+        else if (changes.type == "trophies") {
+
+        }
+
+        else {
+		    //update changes for players	
+		    if (changes.money != "default"){
+		    	connection.query(`UPDATE students SET money = ${changes.money} WHERE id = ${login.studentid};`, (err, result, fields) => {
+		    		if (err) throw err;				
+		    	});
+		    	
+		    }
+		    if (changes.health != "default"){
+		    	connection.query(`UPDATE students SET health = ${changes.health} WHERE id = ${login.studentid};`, (err, result, fields) => {
+		    		if (err) throw err;
+		    	});			
+		    }
+		    if (changes.xp != "default"){
+		    	connection.query(`UPDATE students SET xp = ${changes.xp} WHERE id = ${login.studentid};`, (err, result, fields) => {
+		    		if (err) throw err;
+		    	});			
+		    }
+		    if (changes.stars != "default"){
+		    	connection.query(`UPDATE students SET stars = ${changes.stars} WHERE id = ${login.studentid};`, (err, result, fields) => {
+		    		if (err) throw err;
+		    	});			
+		    }
+		    if (changes.name != "default"){
+		    	connection.query(`UPDATE students SET name = '${changes.name}' WHERE id = ${login.studentid};`, (err, result, fields) => {
+		    		if (err) throw err;
+		    	});			
+		    }
+		    if (changes.nickname != "default"){
+		    	connection.query(`UPDATE students SET username = '${changes.nickname}' WHERE id = ${login.studentid};`, (err, result, fields) => {
+		    		if (err) throw err;
+		    	});			
+		    }
+		    if (changes.rank != "default"){
+		    	connection.query(`UPDATE students SET title = '${changes.rank}' WHERE id = ${login.studentid};`, (err, result, fields) => {
+		    		if (err) throw err;
+		    	});			
+		    }
+		    if (charImage != "default"){
+		    	connection.query(`UPDATE students SET img = '${charImage}' WHERE id = ${login.studentid};`, (err, result, fields) => {
+		    		if (err) throw err;
+		    	});		
+            }
+        }
 		populateArrays();	
 	};
 	
@@ -168,7 +245,7 @@ module.exports = function (app, login, callback) {
             });
 
             //populate activities
-            connection.query(`SELECT description, DATE_FORMAT(adate, '%m/%d/%Y %H:%i') as 'date' FROM activities WHERE studentid = ${studentModel.players[i].id}`, (err, activityResult, fields) => {
+            connection.query(`SELECT description, DATE_FORMAT(adate, '%m/%d/%Y ') as 'date' FROM activities WHERE studentid = ${studentModel.players[i].id}`, (err, activityResult, fields) => {
                 if (err) throw err;
                 for (var j = 0; j < activityResult.length; j++) {
                     studentModel.activities.push(activityResult[j]);

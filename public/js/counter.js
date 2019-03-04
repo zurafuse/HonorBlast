@@ -34,15 +34,16 @@ var updateImg = function(){
 	document.getElementById("submitimg").value = document.getElementById("imgfield").value;	
 };
 
+
 //set defaults
-	document.getElementById("submitcoins").value = "default";
-	document.getElementById("submithp").value = "default";	
-	document.getElementById("submitstars").value = "default";
-	document.getElementById("submitxp").value = "default";
-	document.getElementById("submitname").value = "default";
-	document.getElementById("submituser").value = "default";
-	document.getElementById("submitrank").value = "default";
-	document.getElementById("submitimg").value = "default";
+document.getElementById("submitcoins").value = "default";
+document.getElementById("submithp").value = "default";	
+document.getElementById("submitstars").value = "default";
+document.getElementById("submitxp").value = "default";
+document.getElementById("submitname").value = "default";
+document.getElementById("submituser").value = "default";
+document.getElementById("submitrank").value = "default";
+document.getElementById("submitimg").value = "default";
 
 //stars
 var starcount = document.getElementById("starcount").value;

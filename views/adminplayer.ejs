@@ -77,7 +77,7 @@
 					</div>
 					<div class="row stat-row">
 						<div class="delete-button stat-text left-float">
-							<button onclick="deletePlayer()">DELETE PLAYER</button>
+							<button onclick="deleteEntry('player')">DELETE PLAYER</button>
 						</div>
 					</div>
 				</div>
@@ -86,23 +86,24 @@
 				<div class="container-fluid">
 				<h2 class="title2 ">Enter Username and Password to Commit Update</h2>
 				<form action="/admin/update" method="post">	
-					<div class="container">
-						<label for="uname"><b>Username</b></label>
-						<input type="text" placeholder="Enter Username" name="uname" id="uname" required onchange="updateFields()">
-						<label for="psw"><b>Password</b></label>
-						<input type="password" placeholder="Enter Password" name="psw" id="psw" required onchange="updateFields()">
-						<input type="hidden" id="submitcoins" name="submitcoins" value="">
-						<input type="hidden" id="submitxp" name="submitxp" value="">						
-						<input type="hidden" id="submithp" name="submithp" value="">						
-						<input type="hidden" id="submitstars" name="submitstars" value="">
-						<input type="hidden" id="submitname" name="submitname" value="">						
-						<input type="hidden" id="submituser" name="submituser" value="">						
-						<input type="hidden" id="submitrank" name="submitrank" value="">
-						<input type="hidden" id="submitimg" name="submitimg" value="">
-						<input type="hidden" id="studentid" name="studentid" value="<%- thisStudent.id %>">	
-						<input type="hidden" id="submitdelete" name="submitdelete" value="false">						
-						<button type="submit" class="login-button">UPDATE</button>
-					</div>
+                    <div class="container">
+                        <label for="uname"><b>Username</b></label>
+                        <input type="text" placeholder="Enter Username" name="uname" id="uname" required onchange="updateFields()">
+                        <label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" id="psw" required onchange="updateFields()">
+                        <input type="hidden" id="submitcoins" name="submitcoins" value="">
+                        <input type="hidden" id="submitxp" name="submitxp" value="">
+                        <input type="hidden" id="submithp" name="submithp" value="">
+                        <input type="hidden" id="submitstars" name="submitstars" value="">
+                        <input type="hidden" id="submitname" name="submitname" value="">
+                        <input type="hidden" id="submituser" name="submituser" value="">
+                        <input type="hidden" id="submitrank" name="submitrank" value="">
+                        <input type="hidden" id="submitimg" name="submitimg" value="">
+                        <input type="hidden" id="studentid" name="studentid" value="<%- thisStudent.id %>">
+                        <input type="hidden" id="submitdelete" name="submitdelete" value="false">
+                        <input type="hidden" id="submittype" name="submittype" value="player">
+                        <button type="submit" class="login-button">UPDATE</button>
+                    </div>
 				</form>
 				</div>				
 			</div>

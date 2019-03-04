@@ -8,12 +8,12 @@
 <%- include sharedcontent/header.ejs %>
 	<section class="main-container">
 		<br>
-			<div class="container-fluid">
-				<div class="row"><h2 class="title2">Activities:</h2></div>
-				<% for (var i = 0; i < INFO.activities.length; i++){ %>
-					<div class="row stat-row"><p class="stat-text"><%- INFO.activities[i].description %> on <%- INFO.activities[i].date %></p></div>
-				<% } %>	
-			</div>
+        <div class="container-fluid">
+            <div class="row"><h2 class="title2">Activities:</h2></div>
+            <% for (var i = INFO.activities.length - 1; i > -1; i--){ %>
+            <div class="row stat-row"><p class="stat-text"><%- INFO.activities[i].description %> on <%- INFO.activities[i].date %></p></div>
+            <% } %>
+        </div>
 	</section>	
 	<%- include sharedcontent/footer.ejs %>
 	

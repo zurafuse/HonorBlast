@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>TROPHIES - Honor Blast</title>
+    <%- include sharedcontent/head.ejs %>
+</head>
+<body>
+    <%- include sharedcontent/header.ejs %>
+    <section class="main-container">
+        <br>
+        <div class="container-fluid">
+            <div id="control-content">
+                <div class="row"><h2 class="title2">CREATE NEW TROPHY</h2></div>
+                <div class="row"><p class="stat-text">TROPHY DESCRIPTION: </p><input type="text" value="TROPHY DESCRIPTION HERE" id="trophydesfield" name="trophydesfield" onchange="updateTrophyDes()" /></div>
+
+            </div>
+            <div class="row">
+                <div class="container-fluid">
+                    <h2 class="title2 ">Enter Username and Password to Create new Trophy</h2>
+                    <form action="/admin/trophies/add" method="post">
+                        <div class="container">
+                            <label for="uname"><b>Username</b></label>
+                            <input type="text" placeholder="Enter Username" name="uname" id="uname" required onchange="updateFields()">
+                            <label for="psw"><b>Password</b></label>
+                            <input type="password" placeholder="Enter Password" name="psw" id="psw" required onchange="updateFields()">
+                            <input type="hidden" id="submittrophydescription" name="submittrophydescription" value="">
+                            <input type="hidden" id="submitdelete" name="submitdelete" value="false">
+                            <input type="hidden" id="submittype" name="submittype" value="trophy">
+                            <button type="submit" class="login-button">UPDATE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include sharedcontent/footer.ejs %>
+
+    <script src="/js/newtrophies.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/menu.js"></script>
+</body>
+</html>

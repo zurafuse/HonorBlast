@@ -8,19 +8,20 @@
 <%- include sharedcontent/header.ejs %>
 	<section class="main-container">
 		<br>
-			<div class="container-fluid">
-				<div class="row"><h2 class="title2">Assigned Quests:</h2></div>
-				<% for (var i = 0; i < INFO.quests.length; i++){
-				var studentname = "student";
-				for (var j = 0; j < INFO.players.length; j++){
-					if (INFO.players[j].id == INFO.quests[i].studentid){
-						studentname = INFO.players[j].name;
-					}
-				}
-				%>
-					<div class="row stat-row"><p class="stat-text"><%- INFO.quests[i].name %>: <%- INFO.quests[i].description %> - assigned to <%- studentname %></p></div>
-				<% } %>	
-			</div>
+        <div class="container-fluid">
+            <div class="row"><h2 class="title2">Assigned Quests:</h2></div>
+            <% for (var i = 0; i < INFO.quests.length; i++){
+            if (INFO.quests[i].complete == 0){
+            var studentname = "student";
+            for (var j = 0; j < INFO.players.length; j++){
+            if (INFO.players[j].id == INFO.quests[i].studentid){
+            studentname = INFO.players[j].name;
+            }
+            }
+            %>
+            <div class="row stat-row"><p class="stat-text"><%- INFO.quests[i].name %>: <%- INFO.quests[i].description %>. Prizes include: <%- INFO.quests[i].prizes %>. - assigned to <%- studentname %></p></div>
+            <% }} %>
+        </div>
 	</section>	
 	<%- include sharedcontent/footer.ejs %>
 	

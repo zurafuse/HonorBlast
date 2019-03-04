@@ -15,13 +15,14 @@
  %>
 	<section class="main-container">
 		<br>
-			<div class="container-fluid">
-				<div class="row"><h2 class="title2"><%- thisStudent.name %>'s Quests:</h2></div>
-				<% for (var i = 0; i < INFO.quests.length; i++){
-					if (thisStudent.id == INFO.quests[i].studentid){ %>
-					 <div class="row stat-row"><p class="stat-text"><%- INFO.quests[i].name %>: <%- INFO.quests[i].description %></p></div>
-					<% } } %>	
-			</div>
+        <div class="container-fluid">
+            <div class="row"><h2 class="title2"><%- thisStudent.name %>'s Quests:</h2></div>
+            <% for (var i = 0; i < INFO.quests.length; i++){
+            if (INFO.quests[i].complete == 0){
+            if (thisStudent.id == INFO.quests[i].studentid){ %>
+            <div class="row stat-row"><p class="stat-text"><%- INFO.quests[i].name %>: <%- INFO.quests[i].description %>. Prizes include: <%- INFO.quests[i].prizes %>.</p></div>
+            <% } }} %>
+        </div>
 	</section>	
 	<%- include sharedcontent/footer.ejs %>
 	

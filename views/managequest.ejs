@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>QUESTS - Honor Blast</title>
+	<%- include sharedcontent/head.ejs %>
+</head>
+<body>
+    <%- include sharedcontent/header.ejs %>
+    <section class="main-container">
+        <br>
+        <div class="container-fluid">
+            <%
+            var studentname = "";
+            var studentid = "";
+            var questname = "";
+            var description = "";
+            var prizes = "";
+            for (var i = 0; i < INFO.quests.length; i++){
+            if (INFO.quests[i].id == ID){
+            questname = INFO.quests[i].name;
+            description = INFO.quests[i].description;
+            prizes = INFO.quests[i].prizes;
+            for (var j = 0; j < INFO.players.length; j++){
+            if (INFO.players[j].id == INFO.quests[i].studentid){
+            studentname = INFO.players[j].name;
+            studentid = INFO.players[j].id;
+            }
+            }
+            }
+            } %>
+            <div id="control-content">
+                <div class="row"><h2 class="title2">Edit <%- questname %></h2></div>
+                <div class="row"><p class="stat-text">QUEST NAME: </p><input type="text" value="<%- questname %>" id="questfield" name="questfield" onchange="updateQuestName()" /></div>
+                <div class="row"><p class="stat-text">DESCRIPTION: </p><input type="text" value="<%- description %>" id="questdesfield" name="questdesfield" onchange="updateQuestDes()" /></div>
+                <div class="row"><p class="stat-text">PRIZES: </p><input type="text" value="<%- prizes %>" id="questprizefield" name="questprizefield" onchange="updateQuestPrizes()" /></div>
+                <div class="row">
+
+                    <p class="stat-text">ASSIGNED TO: </p>
+                    <select id="questassigned" name="questassigned" onchange="updateQuestAssigned()">
+                        <% for (var i = 0; i < INFO.players.length; i++){
+
+                        if (INFO.players[i].id == studentid){
+                        %>
+                        <option value="<%- INFO.players[i].id %>" selected="selected"><%- INFO.players[i].name %></option>
+                        <% }else{ %>
+                        <option value="<%- INFO.players[i].id %>"><%- INFO.players[i].name %></option>
+                        <% }
+                        }
+                        %>
+                    </select>
+                </div><br />
+                <div class="row">
+                    <div class="delete-button stat-text">
+                        <button onclick="completeQuest()">COMPLETE QUEST</button>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="delete-button stat-text">
+                        <button onclick="deleteEntry('quest')">DELETE QUEST</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="container-fluid">
+                    <h2 class="title2 ">Enter Username and Password to Commit Update</h2>
+                    <form action="/admin/quests/update" method="post">
+                        <div class="container">
+                            <label for="uname"><b>Username</b></label>
+                            <input type="text" placeholder="Enter Username" name="uname" id="uname" required onchange="updateFields()">
+                            <label for="psw"><b>Password</b></label>
+                            <input type="password" placeholder="Enter Password" name="psw" id="psw" required onchange="updateFields()">
+                            <input type="hidden" id="submitquestname" name="submitquestname" value="">
+                            <input type="hidden" id="submitquestid" name="submitquestid" value="<%- ID %>">
+                            <input type="hidden" id="submitquestdescription" name="submitquestdescription" value="">
+                            <input type="hidden" id="submitquestprizes" name="submitquestprizes" value="">
+                            <input type="hidden" id="studentid" name="studentid" value="<%- studentid %>">
+                            <input type="hidden" id="studentname" name="studentname" value="<%- studentname %>">
+                            <input type="hidden" id="submitdelete" name="submitdelete" value="false">
+                            <input type="hidden" id="questcomplete" name="questcomplete" value="false">
+                            <input type="hidden" id="submittype" name="submittype" value="quest">
+                            <button type="submit" class="login-button">UPDATE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include sharedcontent/footer.ejs %>
+
+    <script src="/js/quests.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/menu.js"></script>
+</body>
+</html>

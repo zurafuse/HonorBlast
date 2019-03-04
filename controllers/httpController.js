@@ -91,7 +91,8 @@ module.exports = function (app) {
 			{user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
 				health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars, 
 				name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
-				studentid: request.body.studentid, img: request.body.submitimg, remove: request.body.submitdelete}, 
+				studentid: request.body.studentid, img: request.body.submitimg, 
+                remove: request.body.submitdelete, type: request.body.submittype}, 
 			(objectModel) => {		
 		response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
 		obj = objectModel;
@@ -103,7 +104,8 @@ module.exports = function (app) {
 		addmodel(app, {user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
 			health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars, 
 			name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
-			studentid: request.body.studentid, img: request.body.submitimg}, (objectModel) => {		
+            studentid: request.body.studentid, img: request.body.submitimg, type: request.body.submittype
+        }, (objectModel) => {		
 		response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
 		obj = objectModel;
 		});
@@ -133,7 +135,10 @@ module.exports = function (app) {
                 user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
                 health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars,
                 name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
-                studentid: request.body.studentid, img: request.body.submitimg, remove: request.body.submitdelete
+                studentid: request.body.studentid, img: request.body.submitimg, remove: request.body.submitdelete,
+                type: request.body.submittype, quest: request.body.submitquestid,
+                questName: request.body.submitquestname, questDescription: request.body.submitquestdescription,
+                complete: request.body.questcomplete, prizes: request.body.submitquestprizes, studentname: request.body.studentname 
             },
             (objectModel) => {
                 response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
@@ -143,16 +148,74 @@ module.exports = function (app) {
 
     //admin quest add
     app.post("/admin/quests/add", (request, response) => {
-        addmodel(app, {
-            user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
-            health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars,
-            name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
-            studentid: request.body.studentid, img: request.body.submitimg
-        }, (objectModel) => {
-            response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
-            obj = objectModel;
-        });
+        addmodel(
+            app,
+            {
+                user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
+                health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars,
+                name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
+                studentid: request.body.studentid, img: request.body.submitimg, remove: request.body.submitdelete,
+                type: request.body.submittype, quest: request.body.submitquestid,
+                questName: request.body.submitquestname, questDescription: request.body.submitquestdescription,
+                complete: request.body.questcomplete, prizes: request.body.submitquestprizes, studentname: request.body.studentname
+            },
+            (objectModel) => {
+                response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+                obj = objectModel;
+            });
     });
 
-	
+    //PRIZE MANAGEMENT
+    //admin prizes
+    app.get("/admin/prizes", (request, response) => {
+        response.render("adminprizes", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+    });
+
+    //admin prize management
+    app.get("/admin/prizes/:id", (request, response) => {
+        response.render("manageprize", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+    });
+
+    //admin add new prize
+    app.get("/admin/newprize", (request, response) => {
+        response.render("newprize", { INFO: obj, DATE: (new Date().getYear()) + 1900 });
+    });
+
+    //admin prize update
+    app.post("/admin/prizes/update", (request, response) => {
+        updatemodel(
+            app,
+            {
+                user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
+                health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars,
+                name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
+                studentid: request.body.studentid, img: request.body.submitimg, remove: request.body.submitdelete,
+                type: request.body.submittype, prize: request.body.submitprizeid,
+                prizeName: request.body.submitprizename, prizeDescription: request.body.submitprizedescription,
+                cost: request.body.submitcost
+            },
+            (objectModel) => {
+                response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+                obj = objectModel;
+            });
+    });
+
+    //admin add new prize
+    app.post("/admin/prizes/add", (request, response) => {
+        addmodel(
+            app,
+            {
+                user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
+                health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars,
+                name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
+                studentid: request.body.studentid, img: request.body.submitimg, remove: request.body.submitdelete,
+                type: request.body.submittype, prizeName: request.body.submitprizename, prizeDescription: request.body.submitprizedescription,
+                cost: request.body.submitcost
+            },
+            (objectModel) => {
+                response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+                obj = objectModel;
+            });
+    });
+
 };
