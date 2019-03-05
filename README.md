@@ -1,5 +1,5 @@
 # Honor Blast
-Behavioral App Learning Management System for Children
+Behavior and Rewards Game for Children
 
 ## Description
 I created this application to monitor and reward my childrens' behavior in an interface that might remind them of a video game. Eventually, I want to turn Honor Blast into a Learning Management System (LMS).
