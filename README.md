@@ -13,5 +13,5 @@ I created this application to monitor and reward my childrens' behavior in an in
 
 ## How to Use
 1. Follow setup instructures above.
-2. Create a parent account for yourself and a student account for all of your Honor Blast players.
-3. In the parent (admin) account, begin creating prizes, trophies, and quests.
+2. Create a parent account for yourself in the database (read and write permissions) and a student account (read-only) for all of your Honor Blast players. Use the student account to log into the site, and use the parent account to do updates.
+3. Create an avatar and account for each student and begin creating prizes, trophies, and quests.
