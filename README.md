@@ -4,6 +4,9 @@ Behavior and Rewards Game for Children
 ## Description
 I created this application to monitor and reward my childrens' behavior in an interface that might remind them of a video game. Eventually, I want to turn Honor Blast into a Learning Management System (LMS).
 
+## Ownership and Licensing
+Honor Blast's graphics and code are founded and owned by Timothy Horton. You have my permission to clone the application and site or use any of the code in these files, provided that you do not use my graphics and images as your own.
+
 ## Setup
 1. Clone or download this repository.
 2. Extract the contents of the repository.
