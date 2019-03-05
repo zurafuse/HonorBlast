@@ -39,8 +39,7 @@ module.exports = function (app, login, callback) {
 		trophies: [],
         activities: [],
         quests: [],
-        studenttrophies: [],
-        studentprizes: []
+        studenttrophies: []
     };
 	
 	var getparentid = () => {
@@ -174,13 +173,6 @@ module.exports = function (app, login, callback) {
                 if (err) throw err;
                 for (var j = 0; j < trophyResult.length; j++) {
                     studentModel.studenttrophies.push(trophyResult[j]);
-                }
-            });
-            //populate student prizes
-            connection.query(`SELECT * FROM studentprizes WHERE student = ${studentModel.players[i].id}`, (err, prizeResult, fields) => {
-                if (err) throw err;
-                for (var j = 0; j < prizeResult.length; j++) {
-                    studentModel.studentprizes.push(prizeResult[j]);
                 }
             });
 

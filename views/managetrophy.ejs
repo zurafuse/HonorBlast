@@ -9,19 +9,43 @@
     <section class="main-container">
         <br>
         <div class="container-fluid">
-            <%
+            <%		
             var description = "";
             for (var i = 0; i < INFO.trophies.length; i++){
             if (INFO.trophies[i].id == ID){
             description = INFO.trophies[i].description;
             }
-            } %>
+            }
+			%>
             <div id="control-content">
                 <div class="row"><h2 class="title2">Edit <%- description %></h2></div>
-                <div class="row"><p class="stat-text">DESCRIPTION: </p><input type="text" value="<%- description %>" id="trophydesfield" name="trophydesfield" onchange="updateTrophyDes()" /></div>
+                <div class="row"><p class="stat-text">TROPHY NAME: </p><input type="text" value="<%- description %>" id="trophydesfield" name="trophydesfield" onchange="updateTrophyDes()" /></div>
                 <div class="row">
                 </div>
 
+                <div class="row">
+                    <select id="trophyassigned" name="trophyassigned" onchange="updateTrophyAssigned()">
+						<option value="default" selected="selected">AWARD TROPHY TO A PLAYER</option>
+                        <% for (var i = 0; i < INFO.players.length; i++){
+							var hasTrophy = false;
+							for (var j = 0; j < INFO.studenttrophies.length; j++)
+							{
+								if (INFO.studenttrophies[j].student == INFO.players[i].id && INFO.studenttrophies[j].trophy == ID){
+									hasTrophy = true;
+								}
+							}
+							if (hasTrophy == false){
+						%>
+
+                        <option value="<%- INFO.players[i].id %>"><%- INFO.players[i].name %></option>
+                        <% }}
+							
+                        %>
+                    </select>
+                </div><br />
+				<!-- Description of Award -->
+				<div class="row"><p class="stat-text">AWARD DESCRIPTION: </p><input type="text" value="Trophy Awarded" id="awarddetails" name="awarddetails" onchange="updateAwardDetails()" /></div>				
+				
                 <div class="row">
                     <div class="delete-button stat-text">
                         <button onclick="deleteEntry('trophy')">DELETE TROPHY</button>
@@ -39,6 +63,8 @@
                             <input type="password" placeholder="Enter Password" name="psw" id="psw" required onchange="updateFields()">
                             <input type="hidden" id="submittrophyid" name="submittrophyid" value="<%- ID %>">
                             <input type="hidden" id="submittrophydescription" name="submittrophydescription" value="">
+                            <input type="hidden" id="submittrophyassigned" name="submittrophyassigned" value="">
+							<input type="hidden" id="submitaward" name="submitaward" value="">
                             <input type="hidden" id="submitdelete" name="submitdelete" value="false">
                             <input type="hidden" id="submitcost" name="submitcost" value="false">
                             <input type="hidden" id="submittype" name="submittype" value="trophy">

@@ -63,10 +63,6 @@ module.exports = function (app) {
 		response.render("playertrophies", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
 	});
 	
-	//player prizes
-	app.get("/player/:id/prizes", (request, response) => {
-		response.render("playerprizes", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
-	});
 
 //PLAYER MANAGEMENT
 	//admin
@@ -218,4 +214,56 @@ module.exports = function (app) {
             });
     });
 
+	//TROPHY MANAGEMENT
+    //admin trophies
+    app.get("/admin/trophies", (request, response) => {
+        response.render("admintrophies", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+    });
+
+    //admin trophy management
+    app.get("/admin/trophies/:id", (request, response) => {
+        response.render("managetrophy", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+    });
+
+    //admin add new trophy
+    app.get("/admin/newtrophy", (request, response) => {
+        response.render("newtrophy", { INFO: obj, DATE: (new Date().getYear()) + 1900 });
+    });
+
+    //admin trophy update
+    app.post("/admin/trophies/update", (request, response) => {
+        updatemodel(
+            app,
+            {
+                user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
+                health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars,
+                name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
+                studentid: request.body.studentid, img: request.body.submitimg, remove: request.body.submitdelete,
+                type: request.body.submittype, trophy: request.body.submittrophyid, award: request.body.submitaward,
+                trophyDescription: request.body.submittrophydescription, assigned: request.body.submittrophyassigned
+            },
+            (objectModel) => {
+                response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+                obj = objectModel;
+            });
+    });
+
+    //admin add new trophy
+    app.post("/admin/trophies/add", (request, response) => {
+        addmodel(
+            app,
+            {
+                user: request.body.uname, pwd: request.body.psw, money: request.body.submitcoins,
+                health: request.body.submithp, xp: request.body.submitxp, stars: request.body.submitstars,
+                name: request.body.submitname, nickname: request.body.submituser, rank: request.body.submitrank,
+                studentid: request.body.studentid, img: request.body.submitimg, remove: request.body.submitdelete,
+                type: request.body.submittype, trophyDescription: request.body.submittrophydescription
+            },
+            (objectModel) => {
+                response.render("updatesuccessful", { INFO: obj, DATE: (new Date().getYear()) + 1900, ID: request.params.id });
+                obj = objectModel;
+            });
+    });
+	
+	
 };

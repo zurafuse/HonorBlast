@@ -39,8 +39,7 @@ module.exports = function (app, login, callback) {
 		trophies: [],
         activities: [],
         quests: [],
-        studenttrophies: [],
-        studentprizes: []
+        studenttrophies: []
     };
 	
 	var getStarted = () => {
@@ -64,6 +63,11 @@ module.exports = function (app, login, callback) {
             }
             if (login.type == "prize") {
                 connection.query(`DELETE FROM prizes WHERE id = ${login.prize};`, (err, result, fields) => {
+                    if (err) throw err;
+                });
+            }
+            if (login.type == "trophy") {
+                connection.query(`DELETE FROM trophies WHERE id = ${login.trophy};`, (err, result, fields) => {
                     if (err) throw err;
                 });
             }
@@ -121,7 +125,7 @@ module.exports = function (app, login, callback) {
             changes.prizeName = changes.prizeName.replace("'", "''");
             changes.prizeDescription = changes.prizeDescription.replace("'", "''");
 
-            //update changes for quest          
+            //update changes for prize          
             if (changes.prizeName != "default") {
                 connection.query(`UPDATE prizes SET name = '${changes.prizeName}' WHERE id = ${changes.prize};`, (err, result, fields) => {
                     if (err) { throw err; }
@@ -139,8 +143,27 @@ module.exports = function (app, login, callback) {
             }
         }
 
-        else if (changes.type == "trophies") {
+        else if (changes.type == "trophy") {
+            changes.trophyDescription = changes.trophyDescription.replace("'", "''");
+			changes.award = changes.award.replace("'", "''");
 
+            //update changes for trophy          
+            if (changes.trophyDescription != "default") {
+                connection.query(`UPDATE prizes SET description = '${changes.trophyDescription}' WHERE id = ${changes.trophy};`, (err, result, fields) => {
+                    if (err) { throw err; }
+                });
+            }
+            //award trophy to a user          
+            if (changes.assigned != "default") {
+			connection.query(`INSERT INTO studenttrophies(student, trophy, details)VALUES(${changes.assigned}, ${changes.trophy},'${changes.award}');`, (err, result, fields) => {
+                    if (err) { throw err; }
+                });
+            connection.query(`INSERT INTO activities(studentid, description, adate)VALUES(${changes.assigned}, 'The Trophy -${changes.trophyDescription}- has been awarded to Student ID ${changes.assigned}.', 
+                CURDATE());`, (err, result, fields) => {
+                    if (err) throw err;
+                });
+            }
+			
         }
 
         else {
@@ -234,13 +257,6 @@ module.exports = function (app, login, callback) {
                 if (err) throw err;
                 for (var j = 0; j < trophyResult.length; j++) {
                     studentModel.studenttrophies.push(trophyResult[j]);
-                }
-            });
-            //populate student prizes
-            connection.query(`SELECT * FROM studentprizes WHERE student = ${studentModel.players[i].id}`, (err, prizeResult, fields) => {
-                if (err) throw err;
-                for (var j = 0; j < prizeResult.length; j++) {
-                    studentModel.studentprizes.push(prizeResult[j]);
                 }
             });
 
